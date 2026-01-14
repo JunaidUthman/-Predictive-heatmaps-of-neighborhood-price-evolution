@@ -1,5 +1,5 @@
 // Appel de la bibliothèque ML uniquement
-@Library('ml-lib') _
+@Library('ml-shared-library') _
 
 mlModelPipeline {
     modelName = 'mon-modele-image'
