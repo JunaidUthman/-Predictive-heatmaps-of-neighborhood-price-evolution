@@ -1,10 +1,10 @@
-import joblib
+import pickle
 import os
 import numpy as np
 import pandas as pd
 from sklearn.linear_model import LinearRegression
 
-MODEL_FILE = os.path.join(os.path.dirname(__file__), "../models/k_means_model.joblib")
+MODEL_FILE = os.path.join(os.path.dirname(__file__), "../models/k_means_model.pkl")
 
 class InferenceEngine:
     def __init__(self):
@@ -18,7 +18,8 @@ class InferenceEngine:
             self.stats_store = {}
             return
 
-        self.stats_store = joblib.load(MODEL_FILE)
+        with open(MODEL_FILE, 'rb') as f:
+            self.stats_store = pickle.load(f)
         print("Model loaded successfully.")
 
     def get_heatmap(self, rental_type: str):

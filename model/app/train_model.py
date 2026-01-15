@@ -1,12 +1,12 @@
 import pandas as pd
 import numpy as np
-import joblib
+import pickle
 import os
 from sklearn.cluster import KMeans
 
 # Defines where to save the trained brain
 
-OUTPUT_FILE = os.path.join(os.path.dirname(__file__), "../models/k_means_model.joblib")
+OUTPUT_FILE = os.path.join(os.path.dirname(__file__), "../models/k_means_model.pkl")
 DATA_FILE = os.path.join(os.path.dirname(__file__), "../data/properties_data.csv")
 
 def train():
@@ -25,7 +25,8 @@ def train():
     }
 
     # Save to disk
-    joblib.dump(final_output, OUTPUT_FILE)
+    with open(OUTPUT_FILE, 'wb') as f:
+        pickle.dump(final_output, f)
     
     # Save feature matrix and preprocessor for MONTHLY
     monthly_df = pd.read_csv(DATA_FILE)
@@ -39,7 +40,8 @@ def train():
     n_clusters = min(3, len(pivot_df))
     kmeans = KMeans(n_clusters=n_clusters, random_state=42)
     labels = kmeans.fit_predict(growth_matrix)
-    joblib.dump(kmeans, os.path.join(os.path.dirname(__file__), "../models/preprocessor.joblib"))
+    with open(os.path.join(os.path.dirname(__file__), "../models/preprocessor.pkl"), 'wb') as f:
+        pickle.dump(kmeans, f)
     
     print(f"Training Complete. Model saved to {OUTPUT_FILE}")
 
