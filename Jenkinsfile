@@ -6,6 +6,6 @@ mlModelPipeline(
     modelFiles: [
         [name: 'k_means_model.pkl', targetDir: '/'],
         [name: 'preprocessor.pkl', targetDir: '/'],
-        [name: 'property_feature_matrix.npy', targetDir: '/']
+        [name: 'property_feature_matrix.npy', targetDir: './']
     ]
 )
